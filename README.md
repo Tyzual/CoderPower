@@ -8,7 +8,18 @@ A Xcode Plug-in imitating the activate-power-mode atom package. Shake &amp; Spar
 
 For Xcode 8 users, visit [this instructions](https://github.com/XVimProject/XVim/blob/master/INSTALL_Xcode8.md) first
 
-Clone this repo and build it
+Clone this repo and MAKE IT
+```bash
+$ cd Your/CoderPower/Directory
+$ make
+```
+
+## Uninstall
+```bash
+$ cd Your/CoderPower/Directory
+$ make uninstall
+```
+
 
 ## Update log
 
