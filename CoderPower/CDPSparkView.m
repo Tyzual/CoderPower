@@ -13,6 +13,7 @@
 #import "NSNumber+Append.h"
 #import "CVDisplayLinkMgr.h"
 #import "CDPBubleAnimateDelegate.h"
+#import "SparkCounter.h"
 
 @interface CDPDot : CALayer
 @property (nonatomic, retain) NSColor *color;
@@ -121,8 +122,9 @@
 
 -(void) addSparkAtPoint:(CGPoint) point colors:(NSArray<NSColor *> *) colors {
 	@synchronized (self.dots) {
-		NSInteger bubleCount = [NSNumber randomBetween:10 and:16];
-		for (int i = 0; i < bubleCount; ++i) {
+//		NSInteger bubleCount = [NSNumber randomBetween:10 and:16];
+		NSInteger sparkCount = [[SparkCounter getInstance] getSparkCount];
+		for (int i = 0; i < sparkCount; ++i) {
 			// 直径
 			NSInteger bubleDiameter = [NSNumber randomBetween:3 and:6];
 			NSInteger clrIndex = [NSNumber randomBetween:0 and:colors.count];
