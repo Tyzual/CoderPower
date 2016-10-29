@@ -8,11 +8,11 @@ endif
 
 release: uuid
 	$(xcodebuild) Release $(REDIRECT)
-	rm -rf ./build
+	@rm -rf ./build
 
 debug: uuid
 	$(xcodebuild) Debug $(REDIRECT)
-	rm -rf ./build
+	@rm -rf ./build
 
 
 clean: clean-release clean-debug
@@ -32,7 +32,7 @@ uuid:
 	uuid=`defaults read "$${xcode_path}/../Info" DVTPlugInCompatibilityUUID`; \
 	grep $${uuid} CoderPower/Info.plist > /dev/null ; \
 	if [ $$? -ne 0 ]; then \
-		printf "Add xcode uuid to Info.plist"
+		printf "Add xcode uuid to Info.plist" \
 		plutil -insert DVTPlugInCompatibilityUUIDs.0 -string $${uuid} CoderPower/Info.plist; \
 		printf "\n"; \
 	fi ;
