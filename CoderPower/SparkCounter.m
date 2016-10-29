@@ -40,11 +40,12 @@
 	dispatch_sync(self.dispatchQueue, ^{
 		@autoreleasepool {
 			[self.timer invalidate];
+			self.timer = nil;
 			self.sparkCount += 5;
 			
 			dispatch_async(dispatch_get_main_queue(), ^{
 				@autoreleasepool {
-					self.timer = [NSTimer scheduledTimerWithTimeInterval:0.3 repeats:NO block:^(NSTimer * _Nonnull timer) {
+					self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2 repeats:NO block:^(NSTimer * _Nonnull timer) {
 						[self resetSparkCount];
 					}];
 				}
