@@ -8,3 +8,5 @@ Gemfile.lock
 build
 *.xccheckout
 gitrevision.h
+CoderPower.xcodeproj/project.xcworkspace/xcuserdata/*
+CoderPower.xcodeproj/xcuserdata/*
