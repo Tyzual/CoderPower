@@ -11,6 +11,7 @@
 #define kKeyShake @"kKeyShake"
 #define kKeySpark @"kKeySpark"
 #define kClr @"kClr"
+#define kCountMode @"kCountMode"
 
 @implementation CDPUserInfoManager
 
@@ -49,5 +50,17 @@
 + (void)setClr:(NSInteger)clr {
 	[[NSUserDefaults standardUserDefaults] setInteger:clr forKey:kClr];
 	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (void)setCountMode:(NSInteger)countMode {
+	[[NSUserDefaults standardUserDefaults] setInteger:countMode forKey:kCountMode];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSInteger)getCountMode {
+	if (![[NSUserDefaults standardUserDefaults] objectForKey:kCountMode])
+		[self setCountMode:constantModeCount];
+	
+	return [[NSUserDefaults standardUserDefaults] integerForKey:kCountMode];
 }
 @end

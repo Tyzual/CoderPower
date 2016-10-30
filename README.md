@@ -23,6 +23,9 @@ $ make uninstall
 
 ## Update log
 
+v1.4
+*	spark count will increase if you type quickly (combo mode). You can enable this feature in menu
+
 v1.3
 *	add a menu to change spark colors (color at caret or random color in current colorscheme)
 
@@ -33,5 +36,3 @@ v1.2
 v1.1
 *	Add a menu item to disable the plugin
 *	Adjust effect details
-
-It works fine now, and i'm adding some 'additional' feature.(such as configurable effect color, etc...)

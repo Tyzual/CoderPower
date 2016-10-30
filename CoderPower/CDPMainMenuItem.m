@@ -17,6 +17,8 @@
 @property(nonatomic, retain) NSMenuItem *version;
 @property(nonatomic, retain) NSMenuItem *clrCar;
 @property(nonatomic, retain) NSMenuItem *clrSche;
+@property(nonatomic, retain) NSMenuItem *constantCount;
+@property(nonatomic, retain) NSMenuItem *comboCount;
 
 @end
 
@@ -64,8 +66,31 @@
 
 		[colorSubMenu addItem:colorAtCaret];
 		[colorSubMenu addItem:colorInScheme];
-
 		[mainMenu addItem:colorItem];
+		
+		// count
+		NSMenuItem *countItem = [[[NSMenuItem alloc] initWithTitle:@"Spark Count" action:nil keyEquivalent:@""] autorelease];
+		countItem.enabled = YES;
+		
+		NSMenu *countSubMenu = [[[NSMenu alloc] initWithTitle:@"count"] autorelease];
+		countSubMenu.autoenablesItems = NO;
+		[colorSubMenu setAccessibilityEnabled:NO];
+		
+		countItem.submenu = countSubMenu;
+		
+		NSMenuItem *constantCount = [[[NSMenuItem alloc] initWithTitle:@"Constant" action:@selector(constantCount:) keyEquivalent:@""] autorelease];
+		NSMenuItem *comboCount = [[[NSMenuItem alloc] initWithTitle:@"Combo" action:@selector(comboCount:) keyEquivalent:@""] autorelease];
+		
+		constantCount.target = menuItem;
+		comboCount.target = menuItem;
+		menuItem.constantCount = constantCount;
+		menuItem.comboCount = comboCount;
+		[constantCount setEnabled:YES];
+		[comboCount setEnabled:YES];
+		
+		[countSubMenu addItem:constantCount];
+		[countSubMenu addItem:comboCount];
+		[mainMenu addItem:countItem];
 
 		// version
 		NSMenuItem *versionItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"version %@", CDPAppVersion] action:nil keyEquivalent:@""];
@@ -103,22 +128,46 @@
 
 	self.clrCar.state = 0;
 	self.clrSche.state = 0;
+	self.constantCount.state = 0;
+	self.comboCount.state = 0;
 	if (CDPUserInfoManager.isSparkOn) {
-		[self.clrCar setEnabled:YES];
-		[self.clrSche setEnabled:YES];
-		switch ([CDPUserInfoManager getClr]) {
-	  		case clrCrt:
-				self.clrCar.state = 1;
-				break;
-			case clrSch:
-				self.clrSche.state = 1;
-				break;
-			default:
-				break;
-		}
+		[self updateColorSubMenu];
+		[self updateCountSubMenu];
 	} else {
 		[self.clrCar setEnabled:NO];
 		[self.clrSche setEnabled:NO];
+		[self.constantCount setEnabled:NO];
+		[self.comboCount setEnabled:NO];
+	}
+}
+
+- (void)updateColorSubMenu {
+	[self.clrCar setEnabled:YES];
+	[self.clrSche setEnabled:YES];
+	switch ([CDPUserInfoManager getClr]) {
+		case clrCrt:
+			self.clrCar.state = 1;
+			break;
+		case clrSch:
+			self.clrSche.state = 1;
+			break;
+		default:
+			break;
+	}
+}
+
+- (void)updateCountSubMenu {
+	[self.constantCount setEnabled:YES];
+	[self.comboCount setEnabled:YES];
+	switch ([CDPUserInfoManager getCountMode]) {
+		case constantModeCount:
+			self.constantCount.state = 1;
+			break;
+		case comboModeCount:
+			self.comboCount.state = 1;
+			break;
+		default:
+			break;
 	}
 }
 
@@ -139,6 +188,16 @@
 
 - (void)colorInScheme:(id)sender {
 	[CDPUserInfoManager setClr:clrSch];
+	[self updateTitles];
+}
+
+- (void)constantCount:(id)sender {
+	[CDPUserInfoManager setCountMode:constantModeCount];
+	[self updateTitles];
+}
+
+- (void)comboCount:(id)sender {
+	[CDPUserInfoManager setCountMode:comboModeCount];
 	[self updateTitles];
 }
 

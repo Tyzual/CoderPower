@@ -12,6 +12,9 @@
 #define clrSch 1
 #define clrCrt 2
 
+#define constantModeCount 1
+#define comboModeCount 2
+
 @interface CDPUserInfoManager : NSObject
 
 + (BOOL)isShakeOn;
@@ -23,4 +26,6 @@
 + (NSInteger)getClr;
 + (void)setClr:(NSInteger)clr;
 
++ (NSInteger)getCountMode;
++ (void)setCountMode:(NSInteger)countMode;
 @end
